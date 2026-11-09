@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<meta name="color-scheme" content="light"/>
+<meta name="theme-color" content="#f4f1e8"/>
+<meta name="description" content="镜头是怎么改变世界的——焦距、视角、透视压缩、景深、等效焦距、超焦距，一部可以上手玩的镜头科普单页。"/>
+<meta name="author" content="StarrySea1412"/>
+<title>镜头是怎么改变世界的 · 镜头科普手册</title>
+<style>
+:root{
+  --paper:#f4f1e8;--paper-deep:#eae6d8;--card:#fbf9f2;--card2:#f1ede0;
+  --ink:#1c1c1c;--ink-soft:#43423c;--muted:#79776b;--faint:#a5a294;
+  --line:#d8d4c4;--line-strong:#b9b5a2;
+  --black:#22211f;--red:#c04632;--red-soft:rgba(192,70,50,.1);
+  --glass:#5b7f94;--glass-soft:rgba(91,127,148,.12);
+  --gold:#a8812f;--gold-soft:rgba(168,129,47,.12);
+  --ok:#3f8f5f;
+  --mono:ui-monospace,"SFMono-Regular",Consolas,"Liberation Mono",monospace;
+  --sans:"Segoe UI Variable","Segoe UI",system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
+  --hard:4px 4px 0 rgba(60,58,50,.14);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:20px}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.9;
+  background-image:
+    radial-gradient(circle,rgba(60,58,50,.07) 1px,transparent 1.3px),
+    radial-gradient(circle,rgba(60,58,50,.04) 1px,transparent 1.3px);
+  background-size:24px 24px,96px 96px;background-position:-1px -1px}
+::selection{background:#f0d9b8;color:#241c10}
+a{color:#31536b;text-underline-offset:4px}
+a:hover{color:var(--red)}
+button{cursor:pointer;color:inherit;font:inherit}
+button:focus-visible,input:focus-visible{outline:3px solid var(--red);outline-offset:2px}
+p{margin:0 0 1.15em}
+.wrap{max-width:1060px;margin:auto;padding-inline:30px}
+.masthead{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:18px 12px;border-bottom:2px solid var(--black);font-size:12px;letter-spacing:.08em;color:var(--muted)}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;color:var(--ink)}
+.brand .dot{width:14px;height:14px;border-radius:50%;background:var(--red);box-shadow:inset 0 -3px 5px rgba(0,0,0,.35),0 1px 0 rgba(255,255,255,.5)}
+.brand small{font-family:var(--mono);font-size:10px;letter-spacing:.16em;color:var(--red);font-weight:700}
+.edition{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em}
+.hero{padding-block:44px 30px;display:grid;grid-template-columns:1.02fr .98fr;gap:34px;align-items:center}
+.eyebrow{display:inline-flex;align-items:center;gap:9px;font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;color:var(--muted);margin:0 0 18px;background:var(--card);border:1.5px solid var(--line-strong);padding:6px 13px;border-radius:999px;width:fit-content}
+.eyebrow b{color:var(--red);letter-spacing:.14em}
+.hero h1{font-size:clamp(36px,5.2vw,60px);line-height:1.16;letter-spacing:-.02em;margin:0 0 16px;font-weight:800}
+.hero h1 em{font-style:normal;color:var(--red)}
+.hero .dek{font-size:16.5px;color:var(--ink-soft);max-width:620px;margin:0 0 20px}
+.hero-meta{display:flex;flex-wrap:wrap;gap:8px}
+.pill{font-family:var(--mono);font-size:10.5px;letter-spacing:.04em;color:var(--muted);border:1.5px solid var(--line-strong);border-radius:999px;padding:6px 12px;background:var(--card)}
+.pill b{color:var(--ink)}
+.screen{border:2px solid var(--black);border-radius:14px;background:var(--card);padding:10px;box-shadow:7px 7px 0 rgba(60,58,50,.18)}
+.screen .shot{border-radius:8px;overflow:hidden;background:#171614}
+.screen .shot img{display:block;width:100%;aspect-ratio:3/2;object-fit:cover}
+.screen .tc{display:flex;justify-content:space-between;font-family:var(--mono);font-size:10px;letter-spacing:.05em;color:var(--muted);padding:8px 3px 2px}
+.screen .tc .red{color:var(--red);font-weight:700}
+@media (max-width:900px){.hero{grid-template-columns:1fr}}
+.sect{padding-block:38px 8px;border-top:1.5px solid var(--line)}
+.sect-head{display:grid;grid-template-columns:64px 1fr;gap:16px;align-items:start;max-width:820px;margin:0 auto 18px}
+.sect-num{font-family:var(--mono);font-size:12px;color:var(--red);border-top:2px solid var(--red);padding-top:10px;line-height:1.5;letter-spacing:.06em}
+.sect-num b{display:block;font-size:26px;color:var(--ink);font-weight:800;line-height:1.1}
+.sect-head h2{font-size:clamp(23px,2.8vw,32px);margin:0;font-weight:800;letter-spacing:-.015em;line-height:1.3}
+.sect-head p{margin:6px 0 0;color:var(--muted);font-size:13.5px;line-height:1.75}
+.prose{max-width:720px;margin-inline:auto;font-size:15px;color:var(--ink-soft)}
+.prose strong{color:var(--ink)}
+.prose code{font-family:var(--mono);font-size:.86em;background:var(--card2);border:1px solid var(--line);border-radius:4px;padding:.08em .35em}
+.formula{max-width:720px;margin:16px auto;border:2px solid var(--black);border-radius:10px;background:var(--card);padding:13px 18px;font-family:var(--mono);font-size:13.5px;text-align:center;box-shadow:var(--hard)}
+.formula b{color:var(--red)}
+.demo{max-width:940px;margin:24px auto;border:2px solid var(--black);border-radius:12px;background:var(--card);overflow:hidden;box-shadow:6px 6px 0 rgba(60,58,50,.16)}
+.demo-head{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px 16px;border-bottom:1.5px solid var(--line);background:var(--card2);flex-wrap:wrap}
+.demo-tag{font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--red);font-weight:700}
+.demo-title{font-size:14.5px;font-weight:700;margin-left:auto;display:flex;gap:8px;align-items:center}
+.demo-title .hint{font-family:var(--mono);font-size:10px;color:var(--faint);font-weight:400}
+.demo-body{padding:16px 18px 18px}
+.demo-foot{border-top:1px solid var(--line);padding:8px 16px;font-family:var(--mono);font-size:10px;color:var(--faint);line-height:1.7}
+.demo-foot b{color:#31536b}
+.stage{border:1.5px solid var(--line);border-radius:8px;background:#171614;overflow:hidden}
+.stage svg,.stage canvas{display:block;width:100%}
+.controls{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:flex-end;padding:13px 2px 0}
+.ctl{min-width:150px;flex:1}
+.ctl label{display:flex;justify-content:space-between;align-items:baseline;font-family:var(--mono);font-size:10px;letter-spacing:.05em;color:var(--muted);margin-bottom:5px}
+.ctl label b{color:var(--ink);font-size:12.5px;font-weight:700}
+input[type=range]{appearance:none;width:100%;height:22px;background:transparent;cursor:pointer}
+input[type=range]::-webkit-slider-runnable-track{height:4px;background:var(--line-strong);border-radius:2px}
+input[type=range]::-webkit-slider-thumb{appearance:none;width:16px;height:16px;border-radius:50%;background:var(--red);border:2.5px solid var(--card);margin-top:-6.5px;box-shadow:0 0 0 1.5px var(--red)}
+.readout{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
+.rd{border:1.5px solid var(--line);border-radius:8px;background:var(--card2);padding:7px 12px;font-family:var(--mono);font-size:9.5px;color:var(--muted);letter-spacing:.05em;line-height:1.55;flex:1;min-width:130px}
+.rd b{display:block;font-size:14.5px;color:var(--ink);letter-spacing:0}
+.rd b.hot{color:var(--red)}.rd b.okc{color:var(--ok)}.rd b.cool{color:var(--glass)}
+.chip{font-family:var(--mono);font-size:10px;border:1.5px solid var(--line-strong);border-radius:999px;padding:4px 11px;background:var(--card);color:var(--muted);cursor:pointer;user-select:none}
+.chip[aria-pressed=true]{background:var(--black);border-color:var(--black);color:#f4f1e8;font-weight:700}
+.note-box{max-width:720px;margin:14px auto;border-left:3px solid var(--gold);background:var(--gold-soft);padding:10px 16px;font-size:13.5px;line-height:1.8;color:var(--ink-soft)}
+.note-box b{color:var(--gold)}
+</style>
+</head>
+<body>
+<header class="wrap masthead">
+  <div class="brand"><span class="dot" aria-hidden="true"></span>光学手册 <small>OPTICAL PRIMER · II</small></div>
+  <div class="edition">LENSES &amp; PERSPECTIVE · 2026.11</div>
+</header>
+
+<section
+<section class="wrap hero">
+  <div>
+    <p class="eyebrow"><b>INTERACTIVE</b>镜头册 · 光学手册第二部</p>
+    <h1>镜头是怎么<br/><em>改变世界</em>的</h1>
+    <p class="dek">上一册拆了机身：光圈、快门、ISO。这一册拆镜头——为什么 24mm 把世界拍得辽阔、85mm 把背景压到眼前；为什么同一台相机换个镜头，景深和透视全变。五段互动，每一段都能亲手拖。</p>
+    <div class="hero-meta">
+      <span class="pill"><b>5</b> 段互动</span>
+      <span class="pill">焦距 → 透视 → 景深 → 等效 → 镜内旅行</span>
+      <span class="pill">零依赖 · 单文件</span>
+    </div>
+  </div>
+  <figure class="screen" style="margin:0">
+    <div class="shot"><img src="assets/img/hero.webp" alt="折纸鸟摄影师在瞭望台举着长焦镜头对准远方的城市" width="1400" height="933"/></div>
+    <div class="tc"><span>OPTICAL PRIMER · LENSES</span><span class="red">● 600MM READY</span></div>
+  </figure>
+</section>
+
+<section class="sect" id="s1">
+  <div class="wrap">
+    <div class="sect-head">
+      <div class="sect-num"><b>01</b>第一章</div>
+      <div><h2>焦距：视角的开关</h2>
+        <p>焦距不是「拍多远」，是<b>视野多宽</b>。18mm 能吞下一整面墙，200mm 只装得下一扇窗。拖动滑杆，看视角扇形怎么开合。</p>
+      </div>
+    </div>
+    <div class="prose"><p>全画幅对角线 43.3mm。视角 = 2·arctan(43.3 ÷ 2f)——焦距越长，扇形越窄。这也是「广角/长焦」的物理来源：<b>不是放大倍率，是纳入世界的角度</b>。镜头厂用对角线定义「视角」，用横向定义「水平视角」，你看到厂商标的常常是后者（更宽更好看）。</p></div>
+    <div class="demo">
+      <div class="demo-head"><span class="demo-tag">互动 01 · 视角扇</span><span class="demo-title">拖焦距，看扇形开合<span class="hint">8mm → 400mm</span></span></div>
+      <div class="demo-body">
+        <div class="stage"><svg id="fov-svg" viewBox="0 0 800 320" role="img" aria-label="视角扇形示意：镜头发出扇形视野，随焦距开合"></svg></div>
+        <div class="controls">
+          <div class="ctl"><label>焦距<b id="fov-v">50mm</b></label><input type="range" id="fov-f" min="8" max="400" value="50" step="1"/></div>
+          <div class="ctl" style="flex:0 0 auto"><label style="margin-bottom:7px">常见焦段</label><div style="display:flex;gap:6px;flex-wrap:wrap">
+            <button class="chip" data-f="14">14</button><button class="chip" data-f="24">24</button><button class="chip" data-f="35">35</button><button class="chip" data-f="50">50</button><button class="chip" data-f="85">85</button><button class="chip" data-f="200">200</button><button class="chip" data-f="400">400</button>
+          </div></div>
+        </div>
+        <div class="readout">
+          <div class="rd">对角线视角<b class="hot" id="fov-a1">—</b></div>
+          <div class="rd">水平视角<b id="fov-a2">—</b></div>
+          <div class="rd">类型<b id="fov-type">—</b></div>
+          <div class="rd">放大镜类比<b id="fov-analogy">—</b></div>
+        </div>
+      </div>
+      <div class="demo-foot">按全画幅 36×24mm（对角线 43.27mm）真实计算：视角 = 2·arctan(d/2f)。扇形中的小人示意「站在镜头位置的观察者」能看到的世界范围。</div>
+    </div>
+  </div>
+</section>
+
+<section class="sect" id="s2">
+  <div class="wrap">
+    <div class="sect-head">
+      <div class="sect-num"><b>02</b>第二章</div>
+      <div><h2>透视：焦距不改变透视，距离才改变</h2>
+        <p>「广角空间感强、长焦压扁背景」的真相：透视只由<b>相机到主体的距离</b>决定。焦距只是强迫你退后或凑近——改变的是你的站位。</p>
+      </div>
+    </div>
+    <div class="prose"><p>下面两张实拍都是那只红色邮筒，主体在画面里<b>几乎一样大</b>——但左边的背景楼被推得老远（24mm 凑近拍），右边的背景被压到邮筒背后（85mm 退远拍）。主体大小一样、背景大小天差地别：这就是「透视压缩」的全部秘密。</p></div>
+    <div class="demo">
+      <div class="demo-head"><span class="demo-tag">互动 02 · 透视滑块</span><span class="demo-title">同一只邮筒，两种世界<span class="hint">拖滑杆 = 换站位</span></span></div>
+      <div class="demo-body">
+        <div class="stage" style="position:relative">
+          <img id="pv-img" src="assets/img/mail-close.jpg" alt="24mm 广角：邮筒近摄，背景楼远小" style="display:block;width:100%;aspect-ratio:3/2;object-fit:cover"/>
+          <img id="pv-img2" src="assets/img/mail-tele.jpg" alt="85mm 长焦：邮筒同大小，背景楼被压缩放大" style="display:block;position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0"/>
+          <div style="position:absolute;top:10px;left:10px;display:flex;gap:6px">
+            <span class="chip" id="pv-chip-a" aria-pressed="true" style="cursor:default">24mm · 站位 1.2m</span>
+            <span class="chip" id="pv-chip-b" style="cursor:default">85mm · 站位 6m</span>
+          </div>
+        </div>
+        <div class="controls">
+          <div class="ctl"><label>站位距离（决定透视）<b id="pv-dv">1.2 m</b></label><input type="range" id="pv-d" min="0" max="100" value="0"/></div>
+        </div>
+        <div class="readout">
+          <div class="rd">当前站位<b id="pv-r1">1.2m · 广角</b></div>
+          <div class="rd">背景楼「视觉大小」<b id="pv-r2">远小（背景在视野里退后）</b></div>
+          <div class="rd">主体占比<b id="pv-r3">约 1/3 画面宽</b></div>
+        </div>
+      </div>
+      <div class="demo-foot">两张照片主体同占比、背景不同——拖动滑杆在两张间切换，注意<b>只有背景在变</b>。「长焦压缩背景」的因果链：想拍大主体 → 需要长焦 → 长焦强迫你站远 → 站远 → 背景与主体的视觉比例被压缩。</div>
+    </div>
+    <div class="note-box"><b>推论：</b>想改变背景的「大小」，别换焦距——换站位。想改变「景深」，才是换光圈和焦距。两件事在镜头广告里常被混为一谈。</div>
+  </div>
+</section>
+
+<section class="sect" id="s3">
+  <div class="wrap">
+    <div class="sect-head">
+      <div class="sect-num"><b>03</b>第三章</div>
+      <div><h2>景深：清晰不是一条线，是一段距离</h2>
+        <p>对焦在 3 米，3.2 米的东西糊吗？5 米呢？景深公式一次讲清：焦距越长、光圈越大、离得越近，<b>清晰的地段越窄</b>。</p>
+      </div>
+    </div>
+    <div class="prose"><p>这是摄影里最值得背下来的一个公式——因为它直接决定「拍人像用什么头、拍风景缩到多少」：</p></div>
+    <div class="formula">DOF ≈ 2·N·c·s² / f²　（N=光圈 f 值，c=弥散圆 0.03mm，s=对焦距离，f=焦距）</div>
+    <div class="prose"><p>注意分母是 <code>f²</code>——焦距对景深的影响是<b>平方级</b>的：50mm→100mm，景深直接砍到 1/4。这就是为什么人像头都是 85/135mm 而不是 35mm：不是画质，是要那片「窄窄的清晰带」。</p></div>
+    <div class="demo">
+      <div class="demo-head"><span class="demo-tag">互动 03 · 景深台</span><span class="demo-title">三个旋钮，一条清晰带<span class="hint">拖动看 DOF 变化</span></span></div>
+      <div class="demo-body">
+        <div class="stage"><svg id="dof-svg" viewBox="0 0 800 300" role="img" aria-label="景深示意图：被摄距离轴上标出清晰范围"></svg></div>
+        <div class="controls">
+          <div class="ctl"><label>焦距<b id="dof-fv">50mm</b></label><input type="range" id="dof-f" min="14" max="200" value="50" step="1"/></div>
+          <div class="ctl"><label>光圈<b id="dof-nv">f/2.8</b></label><input type="range" id="dof-n" min="0" max="7" step="1" value="2"/></div>
+          <div class="ctl"><label>对焦距离<b id="dof-sv">3.0 m</b></label><input type="range" id="dof-s" min="5" max="200" value="30"/></div>
+        </div>
+        <div class="readout">
+          <div class="rd">景深范围<b class="hot" id="dof-r1">—</b></div>
+          <div class="rd">清晰带宽<b id="dof-r2">—</b></div>
+          <div class="rd">超焦距 H<b id="dof-r3">—</b></div>
+          <div class="rd">典型用途<b id="dof-r4">—</b></div>
+        </div>
+      </div>
+      <div class="demo-foot">按全画幅 c=0.03mm 实算：DOF 近界 = H·s/(H+s)，远界 = H·s/(H−s)（H 为超焦距）。当对焦距离 ≥ 超焦距时远界直接到 ∞——「风景缩光圈到 ∞」的原理在这一格里。</div>
+    </div>
+    <div class="note-box"><b>超焦距小抄：</b>把对焦环拧到 H（超焦距），从 H/2 到 ∞ 全部清晰——街拍「盲拍陷阱对焦」的原理。24mm f/8 全画幅 H≈2.4m，意味着 1.2m 往外全清晰。</div>
+  </div>
+</section>
+
+<section class="sect" id="s4">
+  <div class="wrap">
+    <div class="sect-head">
+      <div class="sect-num"><b>04</b>第四章</div>
+      <div><h2>等效焦距：不同底，不同语言</h2>
+        <p>「50mm 在 APS-C 上等于 75mm」——这句话省略了太多。真正的换算有三层：<b>视角、景深、暗光</b>，每层的换算系数不一样。</p>
+      </div>
+    </div>
+    <div class="prose"><p>传感器小了，同样 50mm 镜头「看到的扇形」就窄了——等效的是「全画幅上要装多长焦距才能看到一样的扇形」。但这只是第一层。景深的等效系数是<b>焦距系数本身</b>（光圈也要乘），暗光能力则是面积比。三层一起算才算真懂：</p></div>
+    <div class="demo">
+      <div class="demo-head"><span class="demo-tag">互动 04 · 等效换算台</span><span class="demo-title">选机身 × 选镜头 = 三层答案<span class="hint">两组滑杆</span></span></div>
+      <div class="demo-body">
+        <div class="controls" style="padding-top:0">
+          <div class="ctl"><label>画幅<b id="eq-bv">APS-C (1.5×)</b></label><input type="range" id="eq-b" min="0" max="3" step="1" value="1"/></div>
+          <div class="ctl"><label>镜头焦距<b id="eq-fv">50mm</b></label><input type="range" id="eq-f" min="12" max="200" value="50" step="1"/></div>
+          <div class="ctl"><label>光圈<b id="eq-nv">f/2.8</b></label><input type="range" id="eq-n" min="0" max="7" step="1" value="2"/></div>
+        </div>
+        <div class="readout" style="margin-top:16px">
+          <div class="rd">视角等效<b class="hot" id="eq-r1">—</b></div>
+          <div class="rd">景深等效<b id="eq-r2">—</b></div>
+          <div class="rd">传感器面积 vs 全幅<b id="eq-r3">—</b></div>
+          <div class="rd">「全画幅味儿」<b id="eq-r4">—</b></div>
+        </div>
+      </div>
+      <div class="demo-foot">画幅系数：全幅 1.0× / APS-C 1.5×(0.44× 面积) / M4/3 2.0×(0.25×) / 1″ 2.7×(0.14×)。景深等效 = 等效焦距 ÷ 等效光圈——所谓「 APS-C 浅景深吃亏」的量化真相。</div>
+    </div>
+  </div>
+</section>
+
+<section class="sect" id="s5">
+  <div class="wrap">
+    <div class="sect-head">
+      <div class="sect-num"><b>05</b>第五章</div>
+      <div><h2>镜内旅行：光在玻璃里的七次转身</h2>
+        <p>一支 24-70mm f/2.8 里有十几片玻璃：聚焦组来回滑动，防抖组反向补偿，光圈叶片开合——拆开看，每个组件都在打工。</p>
+      </div>
+    </div>
+    <div class="prose"><p>镜头不是「一块凸透镜」，是<b>一组透镜分工合作</b>：前组负责收光、中组负责变焦、后组负责聚焦，镀膜负责压制反射（每一片玻璃与空气的界面都会反光，十几片就是几十次反射——镀膜把单面反射率从 4% 压到 0.1%）。</p></div>
+    <div class="demo">
+      <div class="demo-head"><span class="demo-tag">互动 05 · 镜头剖面</span><span class="demo-title">拖对焦环，看镜组怎么动<span class="hint">内对焦 × 防抖补偿</span></span></div>
+      <div class="demo-body">
+        <div class="stage"><svg id="cut-svg" viewBox="0 0 800 280" role="img" aria-label="镜头剖面：光线穿过镜组、光圈叶片、后组到传感器"></svg></div>
+        <div class="controls">
+          <div class="ctl"><label>对焦距离<b id="cut-fv">∞</b></label><input type="range" id="cut-f" min="0" max="100" value="0"/></div>
+          <div class="ctl"><label>光圈<b id="cut-nv">f/2.8</b></label><input type="range" id="cut-n" min="0" max="7" step="1" value="0"/></div>
+          <div class="ctl" style="flex:0 0 auto"><label style="margin-bottom:7px">防抖</label><button class="chip" id="cut-is" aria-pressed="false">开启（模拟抖动）</button></div>
+        </div>
+        <div class="readout">
+          <div class="rd">聚焦组位置<b id="cut-r1">—</b></div>
+          <div class="rd">光圈通光孔<b id="cut-r2">—</b></div>
+          <div class="rd">防抖组<b id="cut-r3">—</b></div>
+          <div class="rd">到达传感器的光<b id="cut-r4">—</b></div>
+        </div>
+      </div>
+      <div class="demo-foot">剖面按内对焦变焦镜简化绘制：前组（收光）→ 变焦组（固定示意）→ 光圈叶片 → 防抖组 → 聚焦组 → 传感器。<b>内对焦</b>= 只有中后组移动、镜头长度不变（对焦快、防尘）。</div>
+    </div>
+    <div class="note-box"><b>镀膜的彩蛋：</b>镜头对着灯看那些「绿紫色的反光」就是镀膜在工作——玻璃单面反光 4%，十组镜片理论透光率只剩 0.96²⁰≈44%；镀膜把每面压到 0.5% 后透光率 ≈90%。f/1.2 与 T1.4 的差别就在这。</div>
+  </div>
+</section>
+
+<section class="sect" id="s6">
+  <div class="wrap">
+    <div class="sect-head">
+      <div class="sect-num"><b>06</b>第六章</div>
+      <div><h2>速查卡：镜头的六句真话</h2>
+        <p>如果只带走六句——</p>
+      </div>
+    </div>
+    <div class="prose">
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:12px">
+        <div style="border:2px solid var(--black);border-radius:10px;background:var(--card);padding:14px 16px;box-shadow:var(--hard)"><b style="color:var(--red)">① 焦距管视角，站位管透视</b><p style="margin:6px 0 0;font-size:13.5px">想压缩背景：退后 + 长焦。想拉开纵深：凑近 + 广角。别怪镜头，怪脚。</p></div>
+        <div style="border:2px solid var(--black);border-radius:10px;background:var(--card);padding:14px 16px;box-shadow:var(--hard)"><b style="color:var(--red)">② 景深吃焦距的平方</b><p style="margin:6px 0 0;font-size:13.5px">50→100mm 景深 ÷4。人像虚化靠长焦 + 大光圈 + 站得近，三管齐下。</p></div>
+        <div style="border:2px solid var(--black);border-radius:10px;background:var(--card);padding:14px 16px;box-shadow:var(--hard)"><b style="color:var(--red)">③ 超焦距是风景外挂</b><p style="margin:6px 0 0;font-size:13.5px">对焦 H，H/2 到 ∞ 全清晰。广角 f/8 的 H 常在 2–3m——街拍陷阱对焦神器。</p></div>
+        <div style="border:2px solid var(--black);border-radius:10px;background:var(--card);padding:14px 16px;box-shadow:var(--hard)"><b style="color:var(--red)">④ 等效要算三层</b><p style="margin:6px 0 0;font-size:13.5px">视角 × 焦距系数、景深 × 焦距系数、暗光 × 面积系数。只说第一层等于没说。</p></div>
+        <div style="border:2px solid var(--black);border-radius:10px;background:var(--card);padding:14px 16px;box-shadow:var(--hard)"><b style="color:var(--red)">⑤ 大光圈的物理代价</b><p style="margin:6px 0 0;font-size:13.5px">口径翻倍=玻璃翻四倍重；像差难收=全开偏软。f/1.2 的价格在为直径付钱。</p></div>
+        <div style="border:2px solid var(--black);border-radius:10px;background:var(--card);padding:14px 16px;box-shadow:var(--hard)"><b style="color:var(--red)">⑥ 镜头是一支施工队</b><p style="margin:6px 0 0;font-size:13.5px">前组收光、中组变焦、防抖组反向补偿、聚焦组前后滑、镀膜压反射——十几个工人各管一段。</p></div>
+      </div>
+      <p style="margin-top:18px;font-family:var(--mono);font-size:11px;color:var(--faint)">机身决定「怎么记录」，镜头决定「看到什么」。——光学手册 · 镜头册 · 完</p>
+    </div>
+  </div>
+</section>
+
+<footer class="wrap" style="border-top:1.5px solid var(--line-strong);margin-top:34px;padding-block:20px 40px;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;font-family:var(--mono);font-size:10.5px;color:var(--faint);letter-spacing:.04em">
+  <div>光学手册 II · 镜头是怎么改变世界的</div>
+  <div>单文件 · 零依赖 · 交互确定性模拟 · 星空 / 2026</div>
+</footer>
+<script>
+(() => {
+"use strict";
+const $ = (s) => document.querySelector(s);
+const $$ = (s) => Array.from(document.querySelectorAll(s));
+const NS = "http://www.w3.org/2000/svg";
+const el = (tag, attrs, parent) => {
+  const n = document.createElementNS(NS, tag);
+  for (const k in attrs) n.setAttribute(k, attrs[k]);
+  if (parent) parent.appendChild(n);
+  return n;
+};
+
+/* ═══ 01 视角扇 ═══ */
+(() => {
+  const svg = $("#fov-svg");
+  if (!svg) return;
+  const CX = 90, CY = 160, DIAG = 43.266;
+  el("rect", { x: 0, y: 0, width: 800, height: 320, fill: "#171614" }, svg);
+  // 远处的"世界"：三排纸片建筑剪影
+  const world = el("g", { opacity: 0.85 }, svg);
+  const buildings = [
+    [620, 120, 46, 180], [690, 90, 58, 210], [758, 140, 40, 160], [560, 150, 36, 150], [718, 60, 34, 240]
+  ];
+  for (const [x, y, w, h] of buildings) {
+    el("rect", { x, y: 320 - h - (y - 120) * 0.0, width: w, height: h, fill: "#2c3e46", opacity: 0.9, rx: 2 }, world);
+  }
+  // 灯和小窗点
+  for (let i = 0; i < 22; i++) {
+    const bx = 560 + (i * 37) % 240;
+    const by = 180 + (i * 53) % 110;
+    el("rect", { x: bx, y: by, width: 5, height: 7, fill: i % 3 ? "#e8c96a" : "#c04632", opacity: 0.85 }, world);
+  }
+  el("text", { x: 600, y: 40, fill: "#8a887f", "font-size": 11, "font-family": "monospace" }, svg).textContent = "世界（被拍的一切）";
+  const cone = el("path", { fill: "rgba(192,70,50,.20)", stroke: "rgba(192,70,50,.85)", "stroke-width": 2 }, svg);
+  const camG = el("g", {}, svg);
+  el("circle", { cx: CX, cy: CY, r: 17, fill: "#fbf9f2", stroke: "#26262b", "stroke-width": 2.5 }, camG);
+  el("circle", { cx: CX + 5, cy: CY - 5, r: 3.5, fill: "#c04632" }, camG);
+  el("text", { x: CX - 30, y: CY + 40, fill: "#c9c4b4", "font-size": 10.5, "font-family": "monospace" }, svg).textContent = "镜头";
+  const label = el("text", { x: 480, y: 62, fill: "#f0c86a", "font-size": 13, "font-family": "monospace", "text-anchor": "middle" }, svg);
+  function halfAngle(f, dim) { return Math.atan(dim / 2 / f) * 180 / Math.PI; }
+  function draw() {
+    const f = +$("#fov-f").value;
+    $("#fov-v").textContent = f + "mm";
+    const diag = halfAngle(f, DIAG);
+    const hor = halfAngle(f, 36) * 2;
+    const a = diag * Math.PI / 180;
+    const L = 620;
+    const y1 = CY - Math.tan(a) * L, y2 = CY + Math.tan(a) * L;
+    cone.setAttribute("d", `M${CX} ${CY} L${CX + L} ${Math.max(-60, y1)} L${CX + L} ${Math.min(380, y2)} Z`);
+    label.textContent = "对角线视角 " + (diag * 2).toFixed(1) + "°";
+    $("#fov-a1").textContent = (diag * 2).toFixed(1) + "°";
+    $("#fov-a2").textContent = hor.toFixed(1) + "°";
+    let type, analogy;
+    if (f <= 20) { type = "超广角"; analogy = "吞下整面墙（空间感夸张）"; }
+    else if (f <= 35) { type = "广角"; analogy = "环境叙事（人文纪实的最爱）"; }
+    else if (f <= 60) { type = "标准"; analogy = "接近人眼的注视感"; }
+    else if (f <= 135) { type = "中长焦"; analogy = "人像黄金段（背景友好）"; }
+    else { type = "长焦"; analogy = "望远镜（把远方压到眼前）"; }
+    $("#fov-type").textContent = type;
+    $("#fov-analogy").textContent = analogy;
+    $$("#fov-chips .chip").forEach((b) => b.setAttribute("aria-pressed", String(+b.dataset.f === f)));
+  }
+  $$(".chip[data-f]").forEach((b) => { b.addEventListener("click", () => { $("#fov-f").value = b.dataset.f; draw(); }); });
+  $("#fov-f").addEventListener("input", draw);
+  draw();
+})();
+
+/* ═══ 02 透视滑块 ═══ */
+(() => {
+  const d = $("#pv-d");
+  if (!d) return;
+  const imgA = $("#pv-img"), imgB = $("#pv-img2");
+  const chipA = $("#pv-chip-a"), chipB = $("#pv-chip-b");
+  function draw() {
+    const v = +d.value / 100;
+    imgA.style.opacity = 1 - v;
+    imgB.style.opacity = v;
+    const dist = (1.2 + v * 4.8).toFixed(1);
+    const fl = Math.round(24 + v * 61);
+    $("#pv-dv").textContent = dist + " m";
+    $("#pv-r1").textContent = dist + "m · " + (v < 0.5 ? fl + "mm 广角" : fl + "mm 长焦");
+    $("#pv-r2").textContent = v < 0.5 ? "远小（背景在视野里退后）" : v < 0.9 ? "压近（背景贴到主体背后）" : "强压缩（楼被叠在邮筒上）";
+    chipA.setAttribute("aria-pressed", String(v < 0.5));
+    chipB.setAttribute("aria-pressed", String(v >= 0.5));
+  }
+  d.addEventListener("input", draw);
+  draw();
+})();
+
+/* ═══ 03 景深台 ═══ */
+(() => {
+  const svg = $("#dof-svg");
+  if (!svg) return;
+  const FSTOPS = [1.4, 2, 2.8, 4, 5.6, 8, 11, 16];
+  const C = 0.03;
+  el("rect", { x: 0, y: 0, width: 800, height: 300, fill: "#171614" }, svg);
+  el("text", { x: 30, y: 34, fill: "#8a887f", "font-size": 11, "font-family": "monospace" }, svg).textContent = "被摄距离轴（对数刻度 0.3m → 100m）";
+  const AXIS_Y = 150, X0 = 50, X1 = 760;
+  el("line", { x1: X0, y1: AXIS_Y, x2: X1, y2: AXIS_Y, stroke: "#4a4844", "stroke-width": 2.5 }, svg);
+  const LOG_SPAN = Math.log10(100 / 0.3);
+  const tOf = (m) => Math.log10(Math.max(0.3, m) / 0.3) / LOG_SPAN;
+  const tick = (m, label) => {
+    const x = X0 + tOf(m) * (X1 - X0);
+    el("line", { x1: x, y1: AXIS_Y - 6, x2: x, y2: AXIS_Y + 6, stroke: "#8a887f", "stroke-width": 1.5 }, svg);
+    el("text", { x, y: AXIS_Y + 24, fill: "#8a887f", "font-size": 10, "font-family": "monospace", "text-anchor": "middle" }, svg).textContent = label;
+  };
+  [0.3, 1, 3, 10, 30, 100].forEach((m) => tick(m, m < 1 ? m.toFixed(1) + "m" : m + "m"));
+  const subject = el("g", {}, svg);
+  el("line", { x1: 11, y1: 0, x2: 11, y2: 26, stroke: "#8a887f", "stroke-width": 1.5 }, subject);
+  el("rect", { x: 0, y: 26, width: 22, height: 30, fill: "#fbf9f2", rx: 3 }, subject);
+  el("circle", { cx: 11, cy: 26, r: 5, fill: "#c04632" }, subject);
+  el("text", { x: 11, y: 72, fill: "#c9c4b4", "font-size": 9.5, "font-family": "monospace", "text-anchor": "middle" }, subject).textContent = "对焦点";
+  const dofBand = el("rect", { x: X0, y: AXIS_Y - 26, width: 60, height: 52, fill: "rgba(63,143,95,.4)", stroke: "#7fd0a0", "stroke-width": 1.5, rx: 4 }, svg);
+  const dofLabel = el("text", { x: 0, y: AXIS_Y - 34, fill: "#7fd0a0", "font-size": 11.5, "font-family": "monospace", "text-anchor": "middle", "font-weight": "bold" }, svg);
+  const blurFar = el("g", {}, svg);
+  const infLabel = el("text", { x: X1 - 6, y: AXIS_Y - 34, fill: "#8a887f", "font-size": 10.5, "font-family": "monospace", "text-anchor": "end" }, svg);
+  function hyperfocal(f, N) { return f * f / (N * C) / 1000; }
+  function draw() {
+    const f = +$("#dof-f").value;
+    const N = FSTOPS[+$("#dof-n").value];
+    const s = Math.pow(10, 0.3 + (+$("#dof-s").value / 100) * (Math.log10(100) - Math.log10(0.3)));
+    $("#dof-fv").textContent = f + "mm";
+    $("#dof-nv").textContent = "f/" + N;
+    $("#dof-sv").textContent = s < 1 ? s.toFixed(2) + " m" : s.toFixed(1) + " m";
+    const H = hyperfocal(f, N);
+    $("#dof-r3").textContent = H < 100 ? H.toFixed(1) + " m" : H.toFixed(0) + " m";
+    const near = H * s / (H + s);
+    const far = s < H ? H * s / (H - s) : Infinity;
+    $("#dof-r1").textContent = (near < 1 ? (near * 100).toFixed(0) + "cm" : near.toFixed(2) + "m") + " → " + (far === Infinity ? "∞" : far < 10 ? far.toFixed(2) + "m" : far.toFixed(1) + "m");
+    const width = far - near;
+    $("#dof-r2").textContent = width < 0.1 ? (width * 100).toFixed(1) + " cm" : width < 10 ? width.toFixed(2) + " m" : width.toFixed(0) + " m";
+    $("#dof-r4").textContent = width < 0.15 ? "微距/特写（窄如刀锋）" : width < 1 ? "人像（背景化开）" : width < 10 ? "街拍/纪实" : far === Infinity ? "风景（全域清晰）" : "环境叙事";
+    // 画带
+    const x1 = X0 + tOf(near) * (X1 - X0);
+    const x2 = far === Infinity ? X1 : X0 + tOf(far) * (X1 - X0);
+    dofBand.setAttribute("x", x1);
+    dofBand.setAttribute("width", Math.max(6, x2 - x1));
+    const cxL = Math.max(X0 + 70, Math.min(X1 - 70, (x1 + x2) / 2));
+    dofLabel.setAttribute("x", cxL);
+    dofLabel.setAttribute("y", AXIS_Y - 52);
+    dofLabel.textContent = "清晰带 " + (near < 1 ? (near * 100).toFixed(0) + "cm" : near.toFixed(2) + "m") + " → " + (far === Infinity ? "∞" : far < 10 ? far.toFixed(2) + "m" : far.toFixed(1) + "m");
+    // 主体：轴下小旗（不遮带）
+    const sx = X0 + tOf(s) * (X1 - X0);
+    subject.setAttribute("transform", "translate(" + (sx - 11) + " " + (AXIS_Y + 34) + ")");
+    // 远景虚化树
+    blurFar.innerHTML = "";
+    if (far < 90) {
+      const bx = X0 + tOf(80) * (X1 - X0);
+      el("circle", { cx: bx, cy: AXIS_Y - 92, r: 16, fill: "rgba(140,110,60,.35)", filter: "blur(2px)" }, blurFar);
+      el("text", { x: bx, y: AXIS_Y - 120, fill: "#8a887f", "font-size": 9.5, "font-family": "monospace", "text-anchor": "middle" }, blurFar).textContent = "远景（虚化区）";
+    } else {
+      const bx = X0 + tOf(80) * (X1 - X0);
+      el("circle", { cx: bx, cy: AXIS_Y - 92, r: 16, fill: "rgba(140,110,60,.9)" }, blurFar);
+      el("text", { x: bx, y: AXIS_Y - 120, fill: "#7fd0a0", "font-size": 9.5, "font-family": "monospace", "text-anchor": "middle" }, blurFar).textContent = "远景（在清晰带内）";
+    }
+  }
+  ["#dof-f", "#dof-n", "#dof-s"].forEach((id) => $(id).addEventListener("input", draw));
+  draw();
+})();
+
+/* ═══ 04 等效换算台 ═══ */
+(() => {
+  const BODIES = [
+    { name: "全画幅 (1.0×)", k: 1, area: 1 },
+    { name: "APS-C (1.5×)", k: 1.5, area: 0.44 },
+    { name: "M4/3 (2.0×)", k: 2, area: 0.25 },
+    { name: '1" (2.7×)', k: 2.72, area: 0.135 },
+  ];
+  const FSTOPS = [1.4, 2, 2.8, 4, 5.6, 8, 11, 16];
+  function draw() {
+    const b = BODIES[+$("#eq-b").value];
+    const f = +$("#eq-f").value;
+    const N = FSTOPS[+$("#eq-n").value];
+    $("#eq-bv").textContent = b.name;
+    $("#eq-fv").textContent = f + "mm";
+    $("#eq-nv").textContent = "f/" + N;
+    const eqF = f * b.k;
+    const eqN = N * b.k;
+    $("#eq-r1").textContent = eqF.toFixed(0) + "mm（视角等效）";
+    $("#eq-r2").textContent = eqF.toFixed(0) + "mm f/" + eqN.toFixed(1) + "（全幅同景深）";
+    $("#eq-r3").textContent = (b.area * 100).toFixed(0) + "%（" + (b.area >= 1 ? "基准" : "是全幅的 " + b.area.toFixed(2) + " 倍") + "）";
+    const verdict = b.k === 1 ? "基准线" : b.area >= 0.4 ? "景深换算后依然轻松化开背景" : b.area >= 0.2 ? "要更广的光圈才能追平全幅虚化" : "口袋机的物理账：虚化和暗光都要让一步";
+    $("#eq-r4").textContent = verdict;
+    $("#eq-r4").className = b.area >= 0.4 ? "okc" : b.area >= 0.2 ? "" : "hot";
+  }
+  ["#eq-b", "#eq-f", "#eq-n"].forEach((id) => $(id).addEventListener("input", draw));
+  draw();
+})();
+
+/* ═══ 05 镜头剖面 ═══ */
+(() => {
+  const svg = $("#cut-svg");
+  if (!svg) return;
+  const CY = 140;
+  el("rect", { x: 0, y: 0, width: 800, height: 280, fill: "#171614" }, svg);
+  el("rect", { x: 60, y: 58, width: 560, height: 164, rx: 12, fill: "#22211f", stroke: "#4a4844", "stroke-width": 3 }, svg);
+  el("text", { x: 74, y: 48, fill: "#8a887f", "font-size": 10.5, "font-family": "monospace" }, svg).textContent = "镜头剖面（内对焦变焦镜简化）";
+  // 镜组
+  const lens = (cx, ry, fill) => el("ellipse", { cx, cy: CY, rx: 10, ry, fill, stroke: "#5b7f94", "stroke-width": 1.6 }, svg);
+  lens(120, 62, "rgba(122,163,184,.28)");
+  lens(160, 56, "rgba(122,163,184,.22)");
+  el("text", { x: 108, y: 66, fill: "#8a887f", "font-size": 9.5, "font-family": "monospace" }, svg).textContent = "前组·收光";
+  // 光圈叶片
+  const aperture = el("path", { fill: "#0c0b0a" }, svg);
+  const apCx = 300;
+  // 防抖组
+  const isGroup = el("g", {}, svg);
+  lens(430, 40, "rgba(168,129,47,.26)");
+  lens(458, 40, "rgba(168,129,47,.26)");
+  el("text", { x: 416, y: 66, fill: "#8a887f", "font-size": 9.5, "font-family": "monospace" }, svg).textContent = "防抖组";
+  // 聚焦组
+  const focusGroup = el("g", {}, svg);
+  lens(540, 46, "rgba(122,163,184,.26)");
+  lens(575, 40, "rgba(122,163,184,.22)");
+  el("text", { x: 528, y: 66, fill: "#8a887f", "font-size": 9.5, "font-family": "monospace" }, svg).textContent = "聚焦组";
+  // 传感器
+  el("rect", { x: 712, y: CY - 55, width: 10, height: 110, fill: "#3a3936", stroke: "#8a887f", "stroke-width": 1.5 }, svg);
+  el("text", { x: 700, y: 68, fill: "#8a887f", "font-size": 10, "font-family": "monospace" }, svg).textContent = "传感器";
+  // 光线
+  const rays = el("g", { "stroke-width": 1.8 }, svg);
+  // 抖动指示
+  const shakeG = el("g", { opacity: 0 }, svg);
+  el("text", { x: 300, y: 250, fill: "#c04632", "font-size": 10.5, "font-family": "monospace" }, shakeG).textContent = "↑ 手抖导致入射角偏移，防抖组反向偏移补偿";
+  let isOn = false, t0 = performance.now();
+  function draw(now) {
+    if (!now) now = performance.now();
+    const fPos = +$("#cut-f").value;   // 0=∞ 100=近
+    const N = [1.4, 2, 2.8, 4, 5.6, 8, 11, 16][+$("#cut-n").value];
+    $("#cut-fv").textContent = fPos === 0 ? "∞" : (12 - fPos / 100 * 11.2).toFixed(1) + " m";
+    $("#cut-nv").textContent = "f/" + N;
+    // 聚焦组移动（内对焦：组后移收近景）
+    const shift = fPos * 0.42;
+    focusGroup.setAttribute("transform", "translate(" + shift + " 0)");
+    $("#cut-r1").textContent = fPos === 0 ? "∞ 位（默认）" : "后移 " + shift.toFixed(0) + "px（收近景）";
+    const r = Math.max(7, 46 / (N / 1.4));
+    aperture.setAttribute("d", "M" + (apCx - 52) + " " + (CY - 52) + " L" + (apCx + 52) + " " + (CY - 52) + " L" + (apCx + 52) + " " + (CY + 52) + " L" + (apCx - 52) + " " + (CY + 52) + " Z M" + apCx + " " + (CY - r) + " L" + (apCx + r) + " " + CY + " L" + apCx + " " + (CY + r) + " L" + (apCx - r) + " " + CY + " Z");
+    $("#cut-r2").textContent = "直径 ≈ " + (50 / N).toFixed(0) + "mm（f/1.4 基准）";
+    rays.innerHTML = "";
+    const spread = Math.max(14, 46 / (N / 1.4));
+    const shake = isOn ? Math.sin((now - t0) / 220) * 5 : 0;
+    for (const oy of [-spread / 2, 0, spread / 2]) {
+      const off = isOn ? shake : 0;
+      const p = "M96 " + (CY + oy + off) + " L" + apCx + " " + (CY + oy * (r / 46)) + " L" + (575 + shift) + " " + CY + " L712 " + CY;
+      el("path", { d: p, fill: "none", stroke: "rgba(240,200,106,.75)", "stroke-linecap": "round" }, rays);
+    }
+    if (isOn) {
+      isGroup.setAttribute("transform", "translate(0 " + (shake * 0.9) + ")");
+      shakeG.setAttribute("opacity", 1);
+      $("#cut-r3").textContent = "反向偏移 " + Math.abs(shake * 0.9).toFixed(1) + "px 补偿中";
+      $("#cut-r4").textContent = "稳定（等效快门 ×4–6 档）";
+    } else {
+      isGroup.setAttribute("transform", "translate(0 0)");
+      shakeG.setAttribute("opacity", 0);
+      $("#cut-r3").textContent = "待命（未启用）";
+      $("#cut-r4").textContent = "随手的抖动而抖（开防抖试试）";
+    }
+    requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
+  $("#cut-is").addEventListener("click", () => {
+    isOn = !isOn;
+    if (isOn) t0 = performance.now();
+    $("#cut-is").setAttribute("aria-pressed", String(isOn));
+  });
+})();
+})();
+</script>
+</body>
+</html>
